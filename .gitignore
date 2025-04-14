@@ -2,3 +2,5 @@
 .Rhistory
 .RData
 .Ruserdata
+
+data/artwork_data_cleaned.csv
