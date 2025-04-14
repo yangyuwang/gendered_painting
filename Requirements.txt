@@ -1,0 +1,21 @@
+# Fundamental libraries for numerical computations and data manipulation
+numpy>=1.18.0
+pandas>=1.0.0
+
+# Computer vision and image processing packages
+opencv-python>=4.2.0.32
+Pillow>=7.0.0
+
+# Deep learning frameworks (required by face detection models)
+tensorflow>=2.3.0
+keras>=2.4.3
+
+# Pre-built deep learning based face analysis package
+deepface>=0.0.75
+
+# RetinaFace for detecting faces (ensure that the package is available in PyPI)
+retinaface>=0.0.4
+
+# Additional packages for plotting and machine learning
+matplotlib>=3.1.0
+scikit-learn>=0.22.0
