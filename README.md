@@ -8,6 +8,7 @@ Date: Apr 13. 2025
 
 This is the coursework for MACS30200, on the gender representations in paintings.
 
+
 ## Result Snapshots
 
 1. Face Counts Trend
@@ -28,3 +29,19 @@ This is the coursework for MACS30200, on the gender representations in paintings
 ## Materials
 
 Data are in [data](data), codes are in [code](code), and visualizations see [Img](Img).
+
+## Requirements for running
+
+Please run the following lines before running the code.
+
+In terminal, please run:
+```bash
+pip install -r Requirements.txt
+```
+
+In R, please run:
+```r
+source("Requirements.R")
+```
+
+
