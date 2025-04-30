@@ -238,7 +238,7 @@ p_size_density <- ggplot(face_gender_with_counts,
 
 print(p_size_density)
 
-ggsave("Img/3_2_GenderSizeDens.png",
+ggsave("Img/3_3_GenderSizeDens.png",
        plot = p_size_density,
        device = "png",
        dpi    = 300,
