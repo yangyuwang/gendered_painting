@@ -318,3 +318,99 @@ ggsave("Img/3_4_GenderPosSizeTrend.png",
        dpi    = 300,
        width  = 10,
        height = 6)
+
+## 3.5 P-value added
+raw_trend <- trend_df %>%
+  mutate(
+    time_20yr = cut(
+      Year,
+      breaks = seq(floor(min(Year)/20)*20, ceiling(max(Year)/20)*20, by = 20),
+      right   = FALSE,
+      labels  = paste(
+        seq(floor(min(Year)/20)*20, ceiling(max(Year)/20)*20 - 20, by = 20),
+        seq(floor(min(Year)/20)*20 + 19, ceiling(max(Year)/20)*20 - 1, by = 20),
+        sep = "–"
+      )
+    )
+  ) %>%
+  pivot_longer(
+    cols      = c(posture_factor_log, log_size),
+    names_to  = "metric",
+    values_to = "value"
+  ) %>%
+  drop_na(time_20yr)
+
+pvalue_df <- raw_trend %>%
+  group_by(time_20yr, metric) %>%
+  nest() %>%
+  mutate(
+    pval = map_dbl(data, ~ broom::tidy(t.test(value ~ gender, data = .x))$p.value),
+    start_year = as.numeric(sub("–.*", "", time_20yr)),
+    year_mid   = start_year + 10
+  ) %>%
+  select(time_20yr, metric, pval, year_mid)
+
+bar_pos <- trend_20yr %>%
+  group_by(metric) %>%
+  summarise(max_val = max(mean_value, na.rm = TRUE))
+
+pvalue_df <- pvalue_df %>%
+  left_join(bar_pos, by = "metric")
+
+pvalue_df$bar_y[pvalue_df$metric == "posture_factor_log"] = 0.4
+pvalue_df$bar_y[pvalue_df$metric == "log_size"] = -5
+pvalue_df$bar_h[pvalue_df$metric == "posture_factor_log"] = 0.045
+pvalue_df$bar_h[pvalue_df$metric == "log_size"] = 0.2
+
+ggplot() +
+  # p-value bars
+  geom_tile(
+    data = pvalue_df,
+    aes(x = year_mid, y = bar_y, fill = pval, height = bar_h),
+    width = 20, 
+    alpha = 0.8
+  ) +
+  geom_line(
+    data = trend_20yr,
+    aes(x = year_mid, y = mean_value, color = gender),
+    size = 0.8
+  ) +
+  geom_point(
+    data = trend_20yr,
+    aes(x = year_mid, y = mean_value, color = gender),
+    size = 2
+  ) +
+  facet_wrap(
+    ~ metric,
+    ncol   = 1,
+    scales = "free_y",
+    labeller = as_labeller(c(
+      posture_factor_log = "Obliqueness",
+      log_size           = "Log(Size)"
+    ))
+  ) +
+  scale_fill_continuous(name = "T-test p-value",
+                        low  = "grey10",
+                        high = "grey90") +
+  scale_x_continuous(
+    name   = "Year",
+    breaks = seq(
+      ceiling(min(trend_20yr$start_year)/100)*100,
+      floor  (max(trend_20yr$start_year)/100)*100,
+      by = 100
+    )
+  ) +
+  labs(
+    y     = "Mean Value",
+    color = "Face Gender"
+  ) +
+  theme_bw() +
+  theme(
+    legend.position = "right",
+    text            = element_text(size = 12)
+  )
+
+ggsave("Img/3_5_GenderPosSizeTrendPbar.png",
+       dpi    = 300,
+       width  = 10,
+       height = 6)
