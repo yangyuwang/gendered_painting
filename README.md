@@ -33,7 +33,7 @@ This is the coursework for MACS30200, on the gender representations in paintings
 
 ## Materials
 
-Data are in [data](data), codes are in [code](code), and visualizations see [Img](Img).
+Data are in [data](data), codes are in [code](code), and visualizations see [Img](Img). Content analysis is made upon the paintings in [Painting_Example](Painting_Example/).
 
 ## Requirements for running
 
