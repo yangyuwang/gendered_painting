@@ -1,0 +1,234 @@
+---
+title: Every Portrait Tells a Story
+subtitle: Tracing Gender Disparities in Paintings, 1400–2024
+format: clean-revealjs
+html-math-method:
+  method: mathjax
+  url: "https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+author:
+  - name: Yangyu Wang
+    orcid: 0009-0008-9541-2265
+    email: wangyd@uchicago.edu
+    affiliations: MACSS, University of Chicago
+date: last-modified
+editor: 
+  markdown: 
+    wrap: 72
+bibliography: bibliography.bib
+---
+
+## 
+
+::::: columns
+::: {.column width="70%"}
+![*Nighthawks*, by Edward Hopper, at *Art Institute of
+Chicago*](img/nighthawks.jpg){fig-align="left"}
+:::
+
+::: {.column width="10%"}
+:::
+:::::
+
+## 
+
+::::: columns
+::: {.column width="70%"}
+![*Nighthawks*, by Edward Hopper, at *Art Institute of
+Chicago*](img/nighthawks.jpg){fig-align="left"}
+:::
+
+::: {.column width="20%"}
+![](img/man_1.png){width="50%"}
+
+![](img/man_2.png){width="50%"}
+
+![](img/woman_1.png){width="50%"}
+:::
+:::::
+
+## Roadmap
+
+RQ: How are genders depicted in paintings through the history?
+
+1.  Theoretical Background
+
+2.  Data & Methods
+
+3.  Results: Tracing Gender Disparities in Paintings
+
+4.  Discussion & Conclusion
+
+# Theoretical Background
+
+## Cultures Reinforce Inequality
+
+-   [**Sociological theories**]{.alert} long argued the cultural
+    inequality
+
+    -   @goffmanGenderAdvertisements1979
+    -   @bourdieuDistinctionSocialCritique1984
+    -   @lamontWhatMissingCultural2014
+
+-   [**Feminist art historical studies**]{.alert} observed gender
+    inequality in cultures
+
+    -   @mulveyVisualPleasureNarrative1975
+    -   @nochlinWomenArtPower1989
+
+-   Findings in [**Computational Text Analyses**]{.alert}
+
+    -   @gargWordEmbeddingsQuantify2018
+    -   @charlesworthHistoricalRepresentationsSocial2022
+
+## Yet, Results in Visual Materials are Controversial...
+
+-   @adukiaWhatWeTeach2023
+-   @guilbeaultOnlineImagesAmplify2024
+
+## Distinguishing Two Dimensions of Cultural Inequality
+
+The major gap between the two papers is how they approach "inequality".
+
+. . .
+
+|           | Frequency-based Inequality | Feature-based Inequality  |
+|:----------|:--------------------------:|:-------------------------:|
+| **Text**  |        Word Counts         |      Word Embeddings      |
+| **Image** |  [Figure Counts]{.alert}| [Figure Features]{.alert}  |
+||[@adukiaWhatWeTeach2023]|[@guilbeaultOnlineImagesAmplify2024]|
+
+. . .
+
+By analyzing both dimensions upon painting, a visual culture format with
+deliberation [@bergerWaysSeeing1972] and long history
+[@aubertPleistoceneCaveArt2014] visual art format, this research would
+like to **systematically examine the gender inequality in visual
+cultures**.
+
+## Hypotheses: Gender Disparity in Paintings
+
+. . .
+
+__H1__: Female characters appear less frequently in paintings than male.
+
+. . .
+
+- Two Conflicted Theories
+    -   From advertisements [@goffmanGenderAdvertisements1979]: Female figures are
+    more [tiny]{.alert}, [avoidant]{.alert} to the camera sights, and
+    [leaning]{.alert}, than male figures, similar to the idea of "the
+    second sex" [@beauvoirSecondSex2012].
+    -   From movies [@mulveyVisualPleasureNarrative1975]: Female figures are
+    more [objectified]{.alert}, thus more [large]{.alert} and
+    [frontal]{.alert} towards the audience, than male figures, as so-called "male gaze".
+
+
+## Hypotheses: Gender Disparity in Paintings
+
+__H1__: Female characters appear less frequently in paintings than male.
+
+. . .
+
+__H2__: Sizes of different genders in paintings are different.
+
+     H2.A: Female characters in the paintings are larger than male characters in sizes.
+
+     H2.B: Female characters in the paintings are smaller than male characters in sizes.
+
+. . .
+
+__H3__: Postures of different genders in paintings are different.
+
+     H2.A: Female characters in the paintings are more oblique than male characters.
+
+     H2.B: Female characters in the paintings are more frontal than male characters.
+
+. . . 
+
+__H4__: Marginalized artists will depict female and male characters in a more equal manner, compared to the artists from dominant groups.
+
+# Data & Methods
+
+## WikiArt.org Dataset
+
+## Artwork Information: Face Detection
+
+## Artist Information: LLM Extraction
+
+## Regressions: Fixed Effect on Face Counts
+
+1. Baseline Model:
+<div style="font-size:0.7em; text-align:center;">
+$$
+\begin{aligned}
+Y_{ij} = \beta_0 + \beta_1\, \text{FaceGender}_{ij} + \beta_2\, \text{ArtistInfo}_{j} + \sum_{t=1}^{T}\beta_t\, \text{Period}_{ij} + \sum_{k=1}^{K} \gamma_k\, D_{k,j} + \epsilon_{ij}
+\end{aligned}
+$$
+</div>
+
+. . .
+
+2. Period-interacted Model:
+<div style="font-size:0.7em; text-align:center;">
+$$
+\begin{aligned}
+Y_{ij} =\; & \beta_0 + \beta_1'\, \text{FaceGender}_{ij} + \beta_2'\, \text{ArtistInfo}_{j} + \sum_{t=1}^{T}\beta_t'\, \text{Period}_{ij}  \notag \\
+    & + \sum_{t=1}^{T}\beta_{t1}'\, \text{Period}_{ij} \times \text{FaceGender}_{ij} + \sum_{k=1}^{K} \gamma_k'\, D_{k,j}' + \epsilon_{ij}'
+    \label{eq:inter1}
+\end{aligned}
+$$
+</div>
+
+
+# Results
+
+## Frequency-based Gender Disparities
+
+![](img/2_FemalePropTrend.png)
+
+## Feature-based Gender Disparities: Baseline
+
+::::: columns
+::: {.column width="65%"}
+![](img/5_1_CoefPlot.png)
+
+:::
+::: {.column width="35%"}
+
+Female faces are persistently [larger]{.alert} and [frontal]{.alert} than male faces in all models.
+
+Marginalized artists hardly bridge the gender gap, while [self-taught]{.alert} artists do depict females more equally in obliqueness.
+
+:::
+:::
+
+## Feature-based Gender Disparities: Trend
+
+![](img/6_GenderCoefTrend.png)
+
+## Feature-based Gender Disparities: Trend
+
+![](img/7_GenderCoefSubTrend.png)
+
+## Feature-based Gender Disparities: Content Analysis
+
+![](img/painting_example.png)
+
+# Discussion & Conclusion
+
+## Summary of Results
+
+## Theoretical Implications
+
+## Methodological Implications
+
+## Limitations
+
+# Q&A
+
+Thanks for listening!
+
+## References
+
+::: {#refs}
+:::
