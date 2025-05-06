@@ -1,7 +1,0 @@
-project:
-  type: website
-  output-dir: presentations
-  
-website:
-  title: "My Presentation"
-
