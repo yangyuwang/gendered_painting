@@ -101,9 +101,8 @@ gender_trend_20yr <- gender_trend_faces %>%
   )
 
 ggplot(gender_trend_20yr, aes(x = year_mid, y = female_proportion, color = face_count)) +
-  geom_point(size = 2, alpha = 0.5) +
-  geom_line(alpha = 0.5) +
-  geom_smooth(alpha = 0.2) +
+  geom_point(size = 2, alpha = 1) +
+  geom_line(alpha = 1) +
   scale_x_continuous(
     name   = "Year",
     breaks = seq(ceiling(min(gender_trend_20yr$start_year) / 100) * 100,

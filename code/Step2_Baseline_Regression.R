@@ -300,8 +300,8 @@ make_subset_models <- function(varname) {
     "Face Count: >2"         = lm(f_lm,   data = filter(df, face_count == ">2")),
     "Artist Gender: Male"    = lmer(f_lmer_g, data = filter(df, author_gender == "Male")),
     "Artist Gender: Female"  = lmer(f_lmer_g, data = filter(df, author_gender == "Female")),
-    "Edu: Formal"            = lmer(f_lmer_e, data = filter(df, edu_dummy == 1)),
-    "Edu: Self-taught"       = lmer(f_lmer_e, data = filter(df, edu_dummy == 0))
+    "Artist Edu: Formal"            = lmer(f_lmer_e, data = filter(df, edu_dummy == 1)),
+    "Artist Edu: Self-taught"       = lmer(f_lmer_e, data = filter(df, edu_dummy == 0))
   )
 }
 
@@ -379,3 +379,48 @@ ggsave("Img/5_2_CoefPlotSep.png",
        width = 16, height = 7,
        dpi = 300)
 
+## New function to split the models to two figures
+
+# ────────────────────────────────────────────────────────────────
+#  Split the *existing* model objects into two groups and plot
+# ────────────────────────────────────────────────────────────────
+library(ggpubr)
+
+# Model names in each group
+grp1 <- c("Baseline",
+          "Face Count: 1",
+          "Face Count: 2",
+          "Face Count: >2")
+
+grp2 <- c("Artist Gender: Male",
+          "Artist Gender: Female",
+          "Artist Education: Formal",
+          "Artist Education: Self-taught")
+
+# ========== Figure 5_1  (size + obliqueness) ========== #
+make_fig_5_1 <- function(model_names, tag_suffix) {
+  p_size <- plot_coefs(models_list_sizes[model_names],
+                       model_names      = model_names,
+                       predictor_rename = predictor_rename,
+                       predictor_order  = predictor_order) +
+    theme(
+      plot.tag.position = c(0.02, 0.98),
+      plot.tag           = element_text(size = 12, hjust = 0)
+    ) + labs(tag = "A. Log(Size)")
+  
+  p_obl  <- plot_coefs(models_list_obliqueness[model_names],
+                       model_names      = model_names,
+                       predictor_rename = predictor_rename,
+                       predictor_order  = predictor_order) +
+    theme(
+      plot.tag.position = c(0.02, 0.98),
+      plot.tag           = element_text(size = 12, hjust = 0)
+    ) + labs(tag = "B. Obliqueness")
+  
+  ggsave(sprintf("Img/5_1_%s.png", tag_suffix),
+         ggarrange(p_size, p_obl, ncol = 1, nrow = 2, align = "v"),
+         width = 10, height = 4, dpi = 300)
+}
+
+make_fig_5_1(grp1, "Group1")
+make_fig_5_1(grp2, "Group2")

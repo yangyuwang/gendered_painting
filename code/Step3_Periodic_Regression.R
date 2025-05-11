@@ -238,8 +238,8 @@ trend20_subsets <- trend20_subsets %>%
 lims <- data.frame(
   Model = rep(desired_order, each = 2),
   y     = c(
-    -0.6, 0.6,
-    -0.6, 0.6,
+    -3.5, 2.5,
+    -3.5, 2.5,
     -3.5, 2.5,
     -3.5, 2.5
   )
