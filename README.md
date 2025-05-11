@@ -25,7 +25,8 @@ This is the coursework for MACS30200, on the gender representations in paintings
 ![img3.3](Img/3_4_GenderPosSizeTrend.png)
 
 5. Gender Gap in Size and Obliqueness 
-![img5.1](Img/5_1_CoefPlot.png)
+![img5.11](Img/5_1_Group1.png)
+![img5.12](Img/5_1_Group2.png)
 
 6. Trend of Gender Gap in Size and Obliqueness 
 ![img6](Img/6_GenderCoefTrend.png)
